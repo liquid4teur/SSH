@@ -62,7 +62,7 @@ To access to a SSH server, the use of a cryptographic key pair is more secure ra
 
 >Copy the public key from PuttyGen,
 
->Go to the SSH server and past the public key in .ssh/authorized_keys
+>Go to the SSH server and past the public key in ".ssh/authorized_keys" (if the folder .ssh and the file authorized_keys don't exit, you have to create it before "~/.ssh/authorized_keys").
 
 - On Mac & Linux: 
 
@@ -74,4 +74,20 @@ To access to a SSH server, the use of a cryptographic key pair is more secure ra
 
 >Copy the public key into the SSH server with the command "scp /path-to-the-public-key/ user@IPaddress:~/" or copy it manually,
 
->If you copied the public key with the scp command, on the SSH server you will probably have to concatenate the public key into the authorized keys file (if the file doesn't exist, you have to create it before).
+>If you copied the public key with the scp command, on the SSH server you will probably have to concatenate the public key into "~/.ssh/authorized_keys" file (if the file and the folder don't exist, you have to create it before).
+
+>To connect to an SSH server from Mac OS X (or Linux), you have to specify the path to the private key by typing the command: "ssh -i /path-to-the-private-key/ username@IPaddress" (you should be able to connect to the SSH server).
+
+>Now if you want to ease your life and avoid typing this long command, you can create a quick shortcut through the config file (~/.ssh/config), for example:
+
+```
+Host 192.168.50.4
+  User username
+  IdentityFile /path-to-the-private-key/
+```
+
+>Now with "ssh IPaddress", you can directly connect to the SSH server.
+
+# Reference
+
+Learning SSH through LinkedIn Learning : https://www.linkedin.com/learning/learning-ssh/generating-a-key-pair-on-windows?u=2006794
