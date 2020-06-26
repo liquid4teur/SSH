@@ -23,7 +23,10 @@ If you need to connect to a VM through SSH, set your network interface of your V
 
 ## If you use Vagrant
 
-[...]
+Vagrant set up automatically the SSH connection between your host and the vagrant box. To connect, you just have to be inside the vagrant environment folder and use the command:
+>vagrant ssh
+
+During the setup of a vagrant box, the private key is set on the host (in the .vagrant folder) and the public key is set on the vagrant box. If you want to know more about Vagrant, go check my [Vagrant repository](https://github.com/liquid4teur/Vagrant).
 
 ## Make life easier
 
@@ -64,6 +67,14 @@ To access to a SSH server, the use of a cryptographic key pair is more secure ra
 
 >Go to the SSH server and past the public key in ".ssh/authorized_keys" (if the folder .ssh and the file authorized_keys don't exit, you have to create it before "~/.ssh/authorized_keys").
 
+>Now open Putty to setup an SSH connection by putting the username@IP_address (akram@192.168.00.00),
+
+>Go to "SSH" category, then in "Auth",
+
+>Browse and select the private key (corresponding to the public key) for the authentication and click open, 
+
+>It will ask for the passphrase (if there is one) and now it's connecting using the certificate.
+
 - On Mac & Linux: 
 
 >Open a terminal and type "ssh-keygen" (RSA is the encryption algorithm): it will generate a public/private rsa key pair,
@@ -74,7 +85,7 @@ To access to a SSH server, the use of a cryptographic key pair is more secure ra
 
 >Copy the public key into the SSH server with the command "scp /path-to-the-public-key/ user@IPaddress:~/" or copy it manually,
 
->If you copied the public key with the scp command, on the SSH server you will probably have to concatenate the public key into "~/.ssh/authorized_keys" file (if the file and the folder don't exist, you have to create it before).
+>If you copied the public key with the scp command, on the SSH server you will probably have to concatenate the public key into "~/.ssh/authorized_keys" file (if the file and the folder don't exist, you have to create it before) with the command: "cat key.pub > .ssh/authorized_keys" (you'll probably have to be root in order to create this folder).
 
 >To connect to an SSH server from Mac OS X (or Linux), you have to specify the path to the private key by typing the command: "ssh -i /path-to-the-private-key/ username@IPaddress" (you should be able to connect to the SSH server).
 
