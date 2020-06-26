@@ -66,7 +66,7 @@ To access to a SSH server, the use of a cryptographic key pair is more secure ra
 
 - On Mac & Linux: 
 
->Open a terminal and type "ssh-keygen -t -rsa" (RSA is the encryption algorithm): it will generate a public/private rsa key pair,
+>Open a terminal and type "ssh-keygen" (RSA is the encryption algorithm): it will generate a public/private rsa key pair,
 
 >Enter the file in which you want to save the key (enter the path+filename): for example, the public key will be "key.pub" and the private key will be "key",
 
@@ -91,3 +91,5 @@ Host 192.168.50.4
 # Reference
 
 Learning SSH through LinkedIn Learning : https://www.linkedin.com/learning/learning-ssh/generating-a-key-pair-on-windows?u=2006794
+
+Virtual Networking for VirtualBox : https://www.virtualbox.org/manual/ch06.html
