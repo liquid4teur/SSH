@@ -7,15 +7,25 @@ SSH connection between a client and a server is encrypted and more secure than o
 
 # Prerequisites
 
-## Clients
+## Clients to connect to the SSH server
 
 To use SSH, you have many clients or softwares which allow you to set SSH connections from a machine to a SSH server:
 
-- On Mac OS & Linux: it's already built-in, you don't need to install a client.
+- On Mac OS and Linux: it's already built-in, you don't need to install a client.
 - On Windows: you have Putty or MobaXterm.
 - On Android: JuiceSSH.
 
 Also, verify that the SSH server is running on the machine you need to connect to.
+
+## Setting up an SSH server
+
+- On Linux, you can do it through the following steps:
+> sudo apt-get openssh-server (apt for Debian (Ubuntu, Mint) and yum for RedHat (CentOS, Fedora))
+
+Then you can start the SSH service. You can also modify the SSH configuration file accessible at "/etc/ssh/sshd_config":
+> "PasswordAuthentication yes" (to connect with username+password, if you put no you'll necessarily need a key pair)
+
+- On Windows, consider first an other OS, it would be better. SSH isn't native to Windows environment. To connect remotely to Windows machines, consider RemoteDesktop. If it's not possible you have a solution through Cygwin, go check [my repository on the subject](https://github.com/liquid4teur/Cygwin).
 
 ## If you use VM
 
@@ -98,6 +108,77 @@ Host 192.168.50.4
 ```
 
 >Now with "ssh IPaddress", you can directly connect to the SSH server.
+
+# Transfering files via SSH
+
+## SFTP (SSH File Transfer Protocol)
+
+The operation through SFTP is different than FTP. SFTP is encrypted and works on only one port, FTP isn't encrypted and can work through many ports.
+
+## SFTP/FTP with clients
+
+The most accessible one is FileZilla (works on Windows, Mac OS and Linux). To work with FileZilla, you have to:
+
+- Put the host, the username and password, the port (22 for SSH) and do quick connect.
+- On the right panel you'll find the remote host, you can select the files you want to transfer and drag them into the location you want (from the host to the local host and also in the other way).
+
+## SFTP/FTP with CLI
+
+It only works on Linux and Mac OS (it can work on Windows if you're using Cygwin). 
+
+To launch an SFTP session, type the command:
+> sftp username@ip-address 
+
+With "?" you can list the commands available. Here some examples:
+
+- If you are typing the command to know something on the local host, it will have this form:
+> lcd (local host + cd)
+> lls (local host + ls) 
+
+- If you are typing the command to know something on the remote host, it will have this form:
+> cd 
+> ls
+
+To transfer files from the host to the remote host: 
+> put file-on-the-host path-on-remote-host
+
+To exit the SFTP session, type:
+> bye
+
+## SCP 
+
+If you need to quickly send or receive files to or from a server running SSH, you can use SCP to do so. SCP comes with Mac OS and Linux (also for Windows, we can let it work with Cygwin).
+
+To use SCP, type the command (it will copy the file to the home server):
+> scp path-of-the-file username@ip-address:
+
+You can specify a path for the destination:
+> scp path-of-the-file username@ip-address:/home/akram/Bureau
+
+You can also receive from the remote host by doing the reverse:
+> scp username@ip-address:/path-of-the-file-on-remote-host/ /path-on-the-host/
+
+## SFTP vs SCP
+
+- SCP is more faster than SFTP, 
+- Yet, with SFTP you have less loss of data and more features through the variety of commands.
+
+# SSH Tunnel 
+
+## Presentation
+
+An SSH Tunnel is a process allowing to encapsulate data from another protocol based on TCP/IP (like HTTP, IMAP, POP3, FTP, ..) into SSH. It works through forwarded ports, from a port on a local machine to a port on a remote machine (port 22 or other). 
+
+## Local port forwarding
+
+Through the terminal command line, you can type the command (for example with mySQL server):
+> ssh -L 9000:127.0.0.1:3000
+
+- 9000 is the port on the local machine
+- 127.0.0.1 is the localhost where is running mySQL server
+- 3000 is the port on the remote server
+
+The connection to databases is also possible through an SSH tunnel.
 
 # Reference
 
